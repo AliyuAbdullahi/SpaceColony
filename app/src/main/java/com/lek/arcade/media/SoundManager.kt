@@ -1,17 +1,17 @@
-package com.lek.arcade.core.helper
+package com.lek.arcade.media
 
 import android.content.Context
 import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.media.SoundPool
+import android.os.Looper
 import android.util.SparseArray
 import androidx.annotation.RawRes
 import com.lek.arcade.R
 
-class SoundManager private constructor(private val context: Context) {
 
-    private var mediaPlayer: MediaPlayer? = null
+class SoundManager private constructor(private val context: Context) {
 
     private var mediaPlayerReleased = true
 
@@ -20,7 +20,9 @@ class SoundManager private constructor(private val context: Context) {
         .setUsage(AudioAttributes.USAGE_GAME)
         .build()
 
-    private var soundPool: SoundPool? = SoundPool.Builder().setMaxStreams(MAX_SOUND).setAudioAttributes(audioAttributes).build()
+    private var soundPool: SoundPool? = SoundPool.Builder().setMaxStreams(MAX_SOUND).setAudioAttributes(
+        audioAttributes
+    ).build()
 
     private var audioManager: AudioManager? = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
 
@@ -35,12 +37,38 @@ class SoundManager private constructor(private val context: Context) {
         mediaPlayerReleased = false
     }
 
+    private var isPlaying = false
+    fun playLongTrackAsync(backgroundSound: BackgroundSound) {
+        if (!isPlaying) {
+            isPlaying = true
+            android.os.Handler(Looper.getMainLooper()).postDelayed({
+                val afd = context.resources.openRawResourceFd(backgroundSound.resId)
+                mediaPlayer = MediaPlayer()
+                mediaPlayer?.apply {
+                    setAudioAttributes(audioAttributes)
+                    setDataSource(afd.fileDescriptor, afd.startOffset, afd.length)
+                    isLooping = true
+                    prepareAsync()
+                }
+                mediaPlayer?.setOnPreparedListener(object : MediaPlayer.OnPreparedListener {
+                    override fun onPrepared(mediaPlayer: MediaPlayer?) {
+                        mediaPlayer?.start()
+                        mediaPlayerReleased = false
+                    }
+                })
+
+                afd.close()
+            }, 500)
+        }
+    }
+
     fun playShortSound(sound: ShortSound, loop: Loop) {
         if (isSoundTurnedOff) return
         val soundId = soundPool?.load(context, sound.resId, 1)!!
         soundPool?.setOnLoadCompleteListener(object : SoundPool.OnLoadCompleteListener {
             override fun onLoadComplete(soundPool: SoundPool?, sampleId: Int, status: Int) {
-                val streamVolume: Float? = audioManager?.getStreamVolume(AudioManager.STREAM_MUSIC)?.toFloat()
+                val streamVolume: Float? =
+                    audioManager?.getStreamVolume(AudioManager.STREAM_MUSIC)?.toFloat()
                 soundPool?.play(soundId, streamVolume!!, streamVolume, 0, loop.value, 1F)
             }
         })
@@ -97,6 +125,8 @@ class SoundManager private constructor(private val context: Context) {
     companion object {
         const val MAX_SOUND = 12
 
+        var mediaPlayer: MediaPlayer? = MediaPlayer()
+
         var MENU_1 = 0
         var MENU_2 = 1
         var MENU_LOOPING = 2
@@ -123,12 +153,12 @@ class SoundManager private constructor(private val context: Context) {
                 soundManager?.audioManager = null
                 soundManager?.soundPoolMap = null
             }
-            val theMediaPlayer = soundManager?.mediaPlayer
+            val theMediaPlayer = mediaPlayer
             if (theMediaPlayer != null) {
                 if (theMediaPlayer.isPlaying) {
                     theMediaPlayer.stop()
                 }
-                soundManager?.mediaPlayer = null
+                mediaPlayer = null
             }
             soundManager = null
         }
@@ -173,4 +203,5 @@ class SoundManager private constructor(private val context: Context) {
         REVEAL_TWO(R.raw.reveal_2),
         DAMAGE(R.raw.damage)
     }
+
 }

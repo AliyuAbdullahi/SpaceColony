@@ -8,4 +8,6 @@
     <dimen name="player_body_height">60dp</dimen>
     <dimen name="exhaust_width">24dp</dimen>
     <dimen name="exhaust_height">16dp</dimen>
+    <dimen name="bullet_width">40dp</dimen>
+    <dimen name="bullet_height">30dp</dimen>
 </resources>

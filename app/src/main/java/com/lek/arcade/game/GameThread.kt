@@ -1,6 +1,7 @@
 package com.lek.arcade.game
 
 import android.graphics.Canvas
+import com.lek.arcade.media.SoundManager
 import com.lek.arcade.core.logger.Console
 
 const val FPS = 30L
@@ -39,6 +40,7 @@ internal class GameThread(private val game: Game) : Thread() {
         var sleepTime: Long
 
         while (running) {
+            game.playBackgroundSound()
             if (game.holder.surface.isValid) {
                 var canvas: Canvas? = null
                 startTime = System.currentTimeMillis()

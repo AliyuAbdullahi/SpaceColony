@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.lek.arcade.core.helper.SoundManager
+import com.lek.arcade.media.SoundManager
 import com.lek.arcade.core.helper.fitSystemWindow
 import com.lek.arcade.core.helper.screenDimension
 import com.lek.arcade.databinding.ActivityHomeScreenBinding
@@ -70,6 +70,7 @@ class HomeScreenActivity : AppCompatActivity() {
             SoundManager.ShortSound.REVEAL_TWO,
             SoundManager.Loop.DONT_LOOP
         )
+        soundManager.stopBackgroundSound()
         this.finish()
         viewModel.goToGameHost()
     }

@@ -8,6 +8,7 @@ import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import com.lek.arcade.GameScene
+import com.lek.arcade.media.SoundManager
 import com.lek.arcade.scenes.Scene
 
 class Game private constructor(
@@ -91,7 +92,11 @@ class Game private constructor(
         return true
     }
 
+    fun playBackgroundSound() {
+        scene.playBackgroundSound()
+    }
+
     companion object {
-        fun instance(context: Context) = Game(context, GameScene(context))
+        fun instance(context: Context, soundManager: SoundManager) = Game(context, GameScene(context, soundManager))
     }
 }
