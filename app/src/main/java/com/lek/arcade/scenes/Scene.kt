@@ -12,4 +12,5 @@ interface Scene {
     fun quit()
     fun setGameLifecycleCallback(callback: IGameCallback)
     fun onTouch(event: MotionEvent): Boolean
+    fun playBackgroundSound()
 }
