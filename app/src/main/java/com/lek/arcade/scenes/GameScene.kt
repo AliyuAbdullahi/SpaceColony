@@ -6,9 +6,10 @@ import android.view.MotionEvent
 import com.lek.arcade.media.SoundManager
 import com.lek.arcade.core.helper.ViewDimention
 import com.lek.arcade.entities.dialpad.DialPadBox
+import com.lek.arcade.entities.enemy.EnemiesStore
 import com.lek.arcade.entities.ship.Exhaust
 import com.lek.arcade.entities.ship.Ship
-import com.lek.arcade.entities.ship.PlayerBody
+import com.lek.arcade.entities.ship.ShipBody
 import com.lek.arcade.entities.ship.ShipController
 import com.lek.arcade.game.IGameCallback
 import com.lek.arcade.media.SoundBox
@@ -18,12 +19,8 @@ class GameScene(private val context: Context, private val soundManager: SoundMan
 
     private lateinit var callback: IGameCallback
     private lateinit var sound: SoundManager
-
-    override fun setGameLifecycleCallback(callback: IGameCallback) {
-        this.callback = callback
-    }
-
     private val boxSize = context.resources.getDimensionPixelSize(R.dimen.dialpad_box_size)
+
 
     private val dialPadBox = DialPadBox(
         context,
@@ -32,11 +29,11 @@ class GameScene(private val context: Context, private val soundManager: SoundMan
         boxSize.toFloat()
     )
 
-    private val playerBody = PlayerBody(
+    private val playerBody = ShipBody(
         context,
         0F, 0F,
-        PlayerBody.bodyWidth(context),
-        PlayerBody.bodyHeight(context)
+        ShipBody.bodyWidth(context),
+        ShipBody.bodyHeight(context)
     )
     private val exhaust = Exhaust(
         context,
@@ -57,13 +54,27 @@ class GameScene(private val context: Context, private val soundManager: SoundMan
 
     private val playerController = ShipController(player)
 
+    private val enemyStore = EnemiesStore()
+
+    init {
+        enemyStore.initEnemies(context, 10)
+    }
+
+    override fun setGameLifecycleCallback(callback: IGameCallback) {
+        this.callback = callback
+    }
+
     override fun displayOn(canvas: Canvas) {
-        dialPadBox.draw(canvas)
         player.draw(canvas)
+        for (enemy in enemyStore.enemies) {
+            enemy.draw(canvas)
+        }
+        dialPadBox.draw(canvas)
     }
 
     override fun update() {
         playerController.update()
+        enemyStore.enemies.forEach { it.update() }
     }
 
     override fun pause() {

@@ -10,4 +10,6 @@
     <dimen name="exhaust_height">16dp</dimen>
     <dimen name="bullet_width">40dp</dimen>
     <dimen name="bullet_height">30dp</dimen>
+    <dimen name="enemy_width">20dp</dimen>
+    <dimen name="enemy_height">20dp</dimen>
 </resources>

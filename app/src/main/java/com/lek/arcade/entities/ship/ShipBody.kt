@@ -4,7 +4,7 @@ import android.content.Context
 import com.lek.arcade.R
 import com.lek.arcade.entities.Entity
 
-class PlayerBody(
+class ShipBody(
     bodyContext: Context,
     bodyX: Float,
     bodyY: Float,

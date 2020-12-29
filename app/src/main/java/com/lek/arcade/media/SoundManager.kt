@@ -37,10 +37,9 @@ class SoundManager private constructor(private val context: Context) {
         mediaPlayerReleased = false
     }
 
-    private var isPlaying = false
     fun playLongTrackAsync(backgroundSound: BackgroundSound) {
-        if (!isPlaying) {
-            isPlaying = true
+        if (!SoundBox.isPlaying) {
+            SoundBox.isPlaying = true
             android.os.Handler(Looper.getMainLooper()).postDelayed({
                 val afd = context.resources.openRawResourceFd(backgroundSound.resId)
                 mediaPlayer = MediaPlayer()
@@ -58,7 +57,7 @@ class SoundManager private constructor(private val context: Context) {
                 })
 
                 afd.close()
-            }, 500)
+            }, 900)
         }
     }
 
@@ -69,7 +68,7 @@ class SoundManager private constructor(private val context: Context) {
             override fun onLoadComplete(soundPool: SoundPool?, sampleId: Int, status: Int) {
                 val streamVolume: Float? =
                     audioManager?.getStreamVolume(AudioManager.STREAM_MUSIC)?.toFloat()
-                soundPool?.play(soundId, streamVolume!!, streamVolume, 0, loop.value, 1F)
+                soundPool?.play(soundId, 0.3F, 0.3F, 0, loop.value, 1F)
             }
         })
     }
@@ -201,7 +200,8 @@ class SoundManager private constructor(private val context: Context) {
         CLICK(R.raw.click),
         REVEAL_ONE(R.raw.reveal_one),
         REVEAL_TWO(R.raw.reveal_2),
-        DAMAGE(R.raw.damage)
+        DAMAGE(R.raw.damage),
+        FIRE_ROCKET(R.raw.defaultgun)
     }
 
 }

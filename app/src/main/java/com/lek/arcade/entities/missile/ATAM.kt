@@ -13,9 +13,9 @@ import com.lek.arcade.entities.Entity
 class ATAM(
     private val aamContext: Context,
     var atamX: Float,
-    var atamY: Float,
-    private val aamWidth: Float,
-    private val aamHeight: Float
+    atamY: Float,
+    aamWidth: Float,
+    aamHeight: Float
 ) : Entity(aamContext, atamX, atamY, aamWidth, aamHeight, false, speedX = 25F) {
 
     private var renderedIndex = 0
