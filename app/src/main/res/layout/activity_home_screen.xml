@@ -8,36 +8,49 @@
     android:background="@drawable/home_page"
     tools:context=".ui.home.HomeScreenActivity">
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/startGame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="140dp"
+        android:layout_height="60dp"
         android:layout_marginTop="24dp"
         android:text="Start Game"
+        android:clickable="true"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/white"
+        android:background="@drawable/home_button"
         app:layout_constraintLeft_toRightOf="@id/guideline4"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="551dp"
-        tools:layout_editor_absoluteY="55dp" />
+        tools:layout_editor_absoluteY="55dp"
+        android:focusable="true" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/highScore"
+        android:textColor="@color/white"
+        android:background="@drawable/home_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
         android:text="High Score"
+        android:layout_marginStart="16dp"
         app:layout_constraintLeft_toRightOf="@id/guideline4"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/startGame"
         tools:layout_editor_absoluteX="551dp"
-        tools:layout_editor_absoluteY="130dp" />
+        tools:layout_editor_absoluteY="130dp"
+        android:focusable="true" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/quitGame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/button_exit"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_margin="24dp"
-        android:text="Quit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         tools:layout_editor_absoluteX="46dp"

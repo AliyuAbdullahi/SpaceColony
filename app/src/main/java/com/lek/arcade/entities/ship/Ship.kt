@@ -15,7 +15,7 @@ class Ship(
     private var shipY: Float,
     private val shipWidth: Float,
     private val shipHeight: Float,
-    private val body: PlayerBody,
+    private val body: ShipBody,
     private val exhaust: Exhaust,
     private val soundManager: SoundManager
 ) : Entity(
@@ -46,9 +46,9 @@ class Ship(
         shipY = y
         MissileTracker.clearGoneMissiles()
         MissileTracker.allMissiles { this.update() }
-        if (rockeInterval == 20) {
+        if (rockeInterval == 15) {
             MissileLauncher.launch(shipContext, shipX, shipY, shipWidth)
-//            soundManager.playShortSound(SoundManager.ShortSound.DAMAGE, SoundManager.Loop.DONT_LOOP)
+            soundManager.playShortSound(SoundManager.ShortSound.FIRE_ROCKET, SoundManager.Loop.DONT_LOOP)
             rockeInterval = 0
         }
         rockeInterval++
