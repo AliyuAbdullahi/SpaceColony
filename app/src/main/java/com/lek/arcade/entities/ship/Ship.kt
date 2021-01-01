@@ -24,7 +24,6 @@ class Ship(
     shipY,
     shipWidth,
     shipHeight,
-    false,
     speedX = 10F,
     speedY = 15F
 ) {
@@ -45,7 +44,7 @@ class Ship(
         shipX = x
         shipY = y
         MissileTracker.clearGoneMissiles()
-        MissileTracker.allMissiles { this.update() }
+        MissileTracker.all { it.update() }
         if (rockeInterval == 15) {
             MissileLauncher.launch(shipContext, shipX, shipY, shipWidth)
             soundManager.playShortSound(SoundManager.ShortSound.FIRE_ROCKET, SoundManager.Loop.DONT_LOOP)
@@ -59,7 +58,7 @@ class Ship(
         update(shipX, shipY)
         body.draw(canvas)
         exhaust.draw(canvas)
-        MissileTracker.allMissiles { this.draw(canvas) }
+        MissileTracker.all { it.draw(canvas) }
     }
 
     override fun image(): Int? {

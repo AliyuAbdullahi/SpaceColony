@@ -17,9 +17,11 @@ object MissileTracker {
         }
     }
 
-    fun allMissiles(predicate: ATAM.() -> Unit) {
+    fun all() = availableMissiles
+
+    fun all(predicate: (ATAM) -> Unit) {
         for (missile in availableMissiles) {
-            missile.predicate()
+            predicate(missile)
         }
     }
 }

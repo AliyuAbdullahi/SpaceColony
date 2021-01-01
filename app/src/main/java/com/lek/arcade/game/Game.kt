@@ -88,7 +88,6 @@ class Game private constructor(
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         scene.onTouch(event)
-        invalidate()
         return true
     }
 
