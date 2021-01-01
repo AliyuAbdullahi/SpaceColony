@@ -2,10 +2,11 @@ package com.lek.arcade.entities.enemy
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.RectF
 import com.lek.arcade.entities.Entity
+import com.lek.arcade.entities.missile.ATAM
 
 abstract class Enemy(
-    private val id: String,
     enemyContext: Context,
     enemyX: Float,
     enemyY: Float,
@@ -18,4 +19,6 @@ abstract class Enemy(
     override fun equals(other: Any?): Boolean {
         return this.id == (other as Enemy).id
     }
+
+    abstract fun hasExploded(): Boolean
 }

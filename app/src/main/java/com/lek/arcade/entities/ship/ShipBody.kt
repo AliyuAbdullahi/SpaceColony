@@ -10,7 +10,7 @@ class ShipBody(
     bodyY: Float,
     bodyWidth: Float,
     val bodyHeight: Float
-) : Entity(bodyContext, bodyX, bodyY, bodyWidth, bodyHeight, false) {
+) : Entity(bodyContext, bodyX, bodyY, bodyWidth, bodyHeight) {
 
     override fun image(): Int = ShipBodyResource.resource
 

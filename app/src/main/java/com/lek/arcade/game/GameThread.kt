@@ -3,6 +3,7 @@ package com.lek.arcade.game
 import android.graphics.Canvas
 import com.lek.arcade.media.SoundManager
 import com.lek.arcade.core.logger.Console
+import com.lek.arcade.media.SoundBox
 
 const val FPS = 30L
 const val DEFAULT_SLEEP_TIME = 20L

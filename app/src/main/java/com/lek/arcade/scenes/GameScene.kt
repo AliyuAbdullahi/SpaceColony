@@ -54,10 +54,8 @@ class GameScene(private val context: Context, private val soundManager: SoundMan
 
     private val playerController = ShipController(player)
 
-    private val enemyStore = EnemiesStore()
-
     init {
-        enemyStore.initEnemies(context, 10)
+        EnemiesStore.initEnemies(context, 10)
     }
 
     override fun setGameLifecycleCallback(callback: IGameCallback) {
@@ -66,15 +64,16 @@ class GameScene(private val context: Context, private val soundManager: SoundMan
 
     override fun displayOn(canvas: Canvas) {
         player.draw(canvas)
-        for (enemy in enemyStore.enemies) {
-            enemy.draw(canvas)
-        }
+
+        EnemiesStore.allOf { it.draw(canvas) }
+
         dialPadBox.draw(canvas)
     }
 
     override fun update() {
         playerController.update()
-        enemyStore.enemies.forEach { it.update() }
+        EnemiesStore.clearHurtEnemy()
+        EnemiesStore.allOf { it.update() }
     }
 
     override fun pause() {

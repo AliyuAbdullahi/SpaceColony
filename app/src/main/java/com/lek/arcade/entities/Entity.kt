@@ -8,6 +8,7 @@ import android.graphics.RectF
 import androidx.annotation.DrawableRes
 import com.lek.arcade.core.helper.ViewDimention
 import com.lek.arcade.core.helper.scaleBitMap
+import java.util.*
 
 abstract class Entity(
     private val context: Context,
@@ -15,9 +16,9 @@ abstract class Entity(
     var y: Float,
     var width: Float,
     var height: Float,
-    val clickable: Boolean = true,
     var speedX: Float = 0F,
-    var speedY: Float = 0F
+    var speedY: Float = 0F,
+    val id: String = UUID.randomUUID().toString()
 ) {
 
     open fun update(x: Float, y: Float) {
@@ -70,7 +71,7 @@ abstract class Entity(
     abstract fun background(): Int?
 
     open fun printMetrics() {
-        println("X: $x \nY: $y \n Width: $width \n height: $height \n Clikable: $clickable")
+        println("X: $x \nY: $y \n Width: $width \n height: $height \n")
     }
 
     open fun moveUp() {
@@ -101,5 +102,9 @@ abstract class Entity(
     open fun moveDiagonalRightDown() {
         moveRight()
         moveDown()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return this.id == (other as Entity).id
     }
 }

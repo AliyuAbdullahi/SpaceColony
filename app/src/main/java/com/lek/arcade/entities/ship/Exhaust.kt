@@ -10,7 +10,7 @@ class Exhaust(
     exhaustY: Float,
    val exhaustWidth: Float,
    val exhaustHeight: Float
-) : Entity(context, exhaustX, exhaustY, exhaustWidth, exhaustHeight, false) {
+) : Entity(context, exhaustX, exhaustY, exhaustWidth, exhaustHeight) {
     private var currentIndex = 0
     private val powerLevelOne = ExhaustResource.PowerOneResource()
 

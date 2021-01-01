@@ -3,9 +3,13 @@ package com.lek.arcade.entities.missile
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
+import com.lek.arcade.R
 import com.lek.arcade.core.helper.ViewDimention
 import com.lek.arcade.core.helper.scaleBitMap
 import com.lek.arcade.entities.Entity
+
+// This at this point, bullet won't hurt any enemy
+private const val IMMUNE_POINT = 20F
 
 /**
  * Air To Air Missile
@@ -13,20 +17,14 @@ import com.lek.arcade.entities.Entity
 class ATAM(
     private val aamContext: Context,
     var atamX: Float,
-    atamY: Float,
-    aamWidth: Float,
-    aamHeight: Float
-) : Entity(aamContext, atamX, atamY, aamWidth, aamHeight, false, speedX = 25F) {
+    var atamY: Float,
+    val aamWidth: Float,
+    val aamHeight: Float
+) : Entity(aamContext, atamX, atamY, aamWidth, aamHeight, speedX = 25F) {
 
     private var renderedIndex = 0
 
-    override fun image(): Int {
-        val image = MissileResource.resources[renderedIndex]
-        if (renderedIndex < MissileResource.resources.size - 1) {
-            renderedIndex++
-        }
-        return image
-    }
+    override fun image(): Int = R.drawable.shot1_exp
 
     override fun draw(canvas: Canvas) {
         image().let { theImage ->
@@ -45,6 +43,6 @@ class ATAM(
     }
 
     fun isOutOFBound(): Boolean {
-        return atamX > ViewDimention.width.toFloat()
+        return atamX > ViewDimention.width.toFloat() - 20F
     }
 }

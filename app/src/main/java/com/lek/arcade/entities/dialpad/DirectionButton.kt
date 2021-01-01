@@ -9,7 +9,7 @@ class DirectionButton(
     val dialPadX: Float,
     internal val dialPadY: Float,
     private val size: Float
-) : Entity(context, dialPadX, dialPadY, size, size, true) {
+) : Entity(context, dialPadX, dialPadY, size, size) {
 
     private val padding = 2
 
